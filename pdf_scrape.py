@@ -16,4 +16,6 @@ def extract_text_from_pdf(pdf_path):
 pdf_path = "/Users/zihaowang/PycharmProjects/Takachar-GPT/Narrative_Logs/Narrative_Test_Log_1.pdf"
 
 # Extract text from the PDF
-extracted_text = extract_text_from_pdf(pdf_path)
+extracted_text = extract_text_from_pdf(pdf_path)[:5000] # Limiting characters
+
+
