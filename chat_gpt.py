@@ -1,6 +1,7 @@
 import openai
 import requests
 from api_key import *
+from pdf_scrape import *
 
 headers = {
     'Content-Type': 'application/json',
@@ -32,4 +33,7 @@ def gpt(role, question):
         message = 'Error:', response.status_code, response.text
         return message
 
+role = "You are a data science employee working for Takachar."
+question = f"Given the following hot tests, find me the date that hot test 2 occured on: {extracted_text}"
+print(gpt(role, question))
 
