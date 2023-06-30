@@ -8,6 +8,7 @@ headers = {
     'Authorization': f"Bearer {api_key}"
 }
 
+
 def gpt(role, question):
     """
     :param role: <str> - role gpt takes on
@@ -19,7 +20,7 @@ def gpt(role, question):
             {'role': 'system', 'content': role},
             {'role': 'user', 'content': question}
         ],
-        'model': 'gpt-3.5-turbo'
+        'model': 'gpt-3.5-turbo' # gpt 4
     }
 
     api_url = 'https://api.openai.com/v1/chat/completions'
@@ -32,6 +33,7 @@ def gpt(role, question):
     else:
         message = 'Error:', response.status_code, response.text
         return message
+
 
 role = "You are a data science employee working for Takachar."
 question = f"Given the following hot tests, find me what happened at 12pm for hot test 1: {extracted_text}"
