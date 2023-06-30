@@ -18,4 +18,3 @@ pdf_path = "/Users/zihaowang/PycharmProjects/Takachar-GPT/Narrative_Logs/Narrati
 # Extract text from the PDF
 extracted_text = extract_text_from_pdf(pdf_path)[:5000] # Limiting characters
 
-
