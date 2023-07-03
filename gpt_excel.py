@@ -1,6 +1,8 @@
 import pandas as pd
 import openai
 import requests
+from openpyxl.reader.excel import load_workbook
+
 from api_key import *
 
 headers = {
@@ -20,7 +22,8 @@ def gpt(role, question):
             {'role': 'system', 'content': role},
             {'role': 'user', 'content': question}
         ],
-        'model': 'gpt-3.5-turbo' # gpt 4
+        'model': 'gpt-3.5-turbo', # gpt 4
+        "temperature": 0.1
     }
 
     api_url = 'https://api.openai.com/v1/chat/completions'
@@ -44,7 +47,7 @@ def excel_generator(path, column_name):
         yield value
 
 
-file_path = "/Hot_Tests.xlsx"
+file_path = "/Users/zihaowang/PycharmProjects/Takachar/Takachar-GPT/Hot_Tests.xlsx"
 excel_gen = excel_generator(file_path, "Hot Test Text")
 
 role = "You are a scientist with expertise in chemical engineering, physical experiments, and data science."
@@ -60,11 +63,24 @@ question = "Example Hot Test: The experiment had smoke. Example Answer: 1" \
            "Example Hot Test: The experiment didn't have smoke. Example Answer: 0" \
            "Example Hot Test: The experiment may or may not have had smoke. Example Answer: N/A" \
            "Your answer options should be one of the following:" \
-           "[0: no smoke, 1: smoke, N/A: Not enough information]. Given the following hot test, tell me if the experiment had smoke or not."
+           "[0: no smoke, 1: smoke, N/A: Not enough information]. Example Hot Test: "
 
 answers = []
+counter = 0
 for hot_test in excel_gen:
-    prompt = f"{context} + {question} + {hot_test}"
+    prompt = f"{context} + {question} + {hot_test}: Example Hot Test: "
     gpt_response = gpt(role, prompt)
     answers.append(gpt_response)
+    counter += 1
+    print(counter)
+print("done with GPT")
 print(answers)
+workbook = load_workbook('/Users/zihaowang/PycharmProjects/Takachar/Takachar-GPT/Hot_Tests.xlsx')
+worksheet = workbook['Sheet1']
+
+for i in range(len(answers)):
+    cell = f"C{i+2}"
+    worksheet[cell] = answers[i]
+
+workbook.save('/Users/zihaowang/PycharmProjects/Takachar/Takachar-GPT/Hot_Tests.xlsx')
+print("done with everything")
