@@ -1,4 +1,3 @@
-import openai
 import requests
 from api_key import *
 from pdf_scrape import *
