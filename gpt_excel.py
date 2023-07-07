@@ -60,8 +60,8 @@ context = "These experiments are Combustion (Pyrolysis) experiments in presence 
          "Primary blowers provide air (hence oxygen) to reactor zone and secondary blowers remove volatiles through chimney. " \
          "The objective is to gain a complete understanding of the underlying combustion process and machine design by testing different hypotheses."
 
-question = "Example Hot Test: The experiment had a motor angle of 5. Example Answer: 5" \
-           "Example Hot Test: The experiment doesn't mention the motor angle. Example Answer: N/A" \
+question = "Example Hot Test: The experiment had an input material of rice. Example Answer: rice" \
+           "Example Hot Test: The experiment doesn't mention the input material. Example Answer: N/A" \
            "Example Hot Test: "
 
 answers = []
@@ -82,10 +82,10 @@ worksheet = workbook['Sheet1']
 
 for i in range(len(answers)):
     try:
-        cell = f"N{i+2}"
+        cell = f"O{i+2}"
         worksheet[cell] = answers[i]
     except:
-        cell = f"N{i + 2}"
+        cell = f"O{i + 2}"
         worksheet[cell] = "N/A"
 
 workbook.save('/Users/zihaowang/PycharmProjects/Takachar/Takachar-GPT/Hot_Tests.xlsx')
