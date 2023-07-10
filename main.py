@@ -17,12 +17,11 @@ worksheet = workbook['Sheet1']
 for index, value in column.items():
     # Access each value in the column
     new_value = ""
-    for i in str(value):
-        if i in allowed_values:
-            new_value = str(i)
-        else:
-            new_value = "N/A"
-    cell = f"K{index + 2}"
+    try:
+        new_value = float(value)
+    except:
+        new_value = "N/A"
+    cell = f"Q{index + 2}"
     worksheet[cell] = new_value
 
 # Save the modified DataFrame to the original Excel file
